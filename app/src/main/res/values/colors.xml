@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorEnergyYellow">#F9D758</color>
+    <color name="colorHokeyPokey">#C3A624</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="colorTitle">#000000</color>
+    <color name="colorSubtitle">#A6000000</color>
+
+    <color name="colorViewGrey">#ff989898</color>
+    <color name="colorWhite">@android:color/white</color>
+    <color name="colorAthensGray">#E9E9ED</color>
+    <color name="colorStrokeLine">@color/colorHokeyPokey</color>
+
+    <!-- LoadingView START-->
+    <color name="colorLoadingTranslucent">#B000</color>
+    <color name="colorWebOrange">#ffab00</color>
+    <!-- LoadingView END -->
+
+    <!-- Recipe Item -->
+    <color name="colorAlabastera">#F9F9F9</color>
+    <!-- List Item -->
+</resources>
