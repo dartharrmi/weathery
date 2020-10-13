@@ -1,6 +1,5 @@
 package com.dartharrmi.weathery.repositories
 
-import android.graphics.Bitmap
 import com.dartharrmi.weathery.domain.CityWeather
 import com.dartharrmi.weathery.repositories.IOpenWeatherMapDataSource.Local
 import com.dartharrmi.weathery.repositories.IOpenWeatherMapDataSource.Remote
@@ -19,4 +18,6 @@ class WeatherRepository(private val localDataSource: Local,
     override suspend fun saveBookmark(cityWeather: CityWeather) = localDataSource.saveBookmark(cityWeather).size == 1
 
     override suspend fun downloadIcon(url: String) = remote.downloadIcon(url)
+
+    override suspend fun removeBookmark(cityWeather: CityWeather) = localDataSource.removeBookmark(cityWeather) == 1
 }

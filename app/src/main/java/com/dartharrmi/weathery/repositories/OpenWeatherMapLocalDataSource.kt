@@ -9,4 +9,6 @@ class OpenWeatherMapLocalDataSource(private val db: AppDatabase) : Local {
     override suspend fun getBookmarked(): List<CityWeather> = db.locationsDao().getAll()
 
     override suspend fun saveBookmark(cityWeather: CityWeather) = db.locationsDao().insertAll(cityWeather)
+
+    override suspend fun removeBookmark(cityWeather: CityWeather) = db.locationsDao().delete(cityWeather)
 }

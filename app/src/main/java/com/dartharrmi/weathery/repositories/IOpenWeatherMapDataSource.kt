@@ -13,6 +13,8 @@ interface IOpenWeatherMapDataSource {
         suspend fun getBookmarked(): List<CityWeather>
 
         suspend fun saveBookmark(cityWeather: CityWeather): List<Long>
+
+        suspend fun removeBookmark(cityWeather: CityWeather): Int
     }
 
     interface Remote {
@@ -37,5 +39,7 @@ interface IOpenWeatherMapDataSource {
         suspend fun getBookmarked(): List<CityWeather>
 
         suspend fun saveBookmark(cityWeather: CityWeather): Boolean
+
+        suspend fun removeBookmark(cityWeather: CityWeather): Boolean
     }
 }

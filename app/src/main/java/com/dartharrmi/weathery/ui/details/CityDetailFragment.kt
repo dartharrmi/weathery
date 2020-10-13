@@ -34,7 +34,7 @@ class CityDetailFragment: BaseFragment<FragmentCityDetailBinding>() {
     }
 
     private val viewModel: DetailsViewModel by activityViewModelBuilder {
-        DetailsViewModel(DependencyContainer.downloadIconUseCase, DependencyContainer.saveBookmarkUseCase)
+        DetailsViewModel(DependencyContainer.downloadIconUseCase, DependencyContainer.saveBookmarkUseCase, DependencyContainer.deleteBookmarkUseCase)
     }
 
     private val args by navArgs<CityDetailFragmentArgs>()
@@ -61,10 +61,28 @@ class CityDetailFragment: BaseFragment<FragmentCityDetailBinding>() {
     private fun onSaveBookmarkEvent(event: Event<Boolean>) {
         when (event.status) {
             SUCCESS -> {
+                args.locationDetail.bookmarked = true
                 fabSaveBookmark.setImageResource(R.drawable.ic_bookmark_filled)
                 Snackbar.make(fabSaveBookmark, R.string.bookmark_save, Snackbar.LENGTH_LONG).show()
             }
+
             FAILURE -> Snackbar.make(fabSaveBookmark, R.string.bookmark_save, Snackbar.LENGTH_LONG).show()
+        }
+    }
+
+    private val deleteBookmarkObserver = Observer<Event<Boolean>> {
+        onDeleteBookmarkEvent(it)
+    }
+
+    private fun onDeleteBookmarkEvent(event: Event<Boolean>) {
+        when (event.status) {
+            SUCCESS -> {
+                args.locationDetail.bookmarked = false
+                fabSaveBookmark.setImageResource(R.drawable.ic_bookmark_empty)
+                Snackbar.make(fabSaveBookmark, R.string.bookmark_remove, Snackbar.LENGTH_LONG).show()
+            }
+
+            FAILURE -> Snackbar.make(fabSaveBookmark, R.string.bookmark_remove_error, Snackbar.LENGTH_LONG).show()
         }
     }
 
@@ -75,6 +93,7 @@ class CityDetailFragment: BaseFragment<FragmentCityDetailBinding>() {
     override fun initObservers() {
         viewModel.downloadIconEvent.observe(this, cityFoundObserver)
         viewModel.saveBookmarkEvent.observe(this, saveBookmarkObserver)
+        viewModel.deleteBookmarkEvent.observe(this, deleteBookmarkObserver)
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?) {
@@ -84,7 +103,11 @@ class CityDetailFragment: BaseFragment<FragmentCityDetailBinding>() {
         initGoogleMap()
         with(dataBinding.root) {
             fabSaveBookmark.setOnClickListener {
-                viewModel.saveBookmark(args.locationDetail)
+                if (!args.locationDetail.bookmarked) {
+                    viewModel.saveBookmark(args.locationDetail)
+                } else {
+                    viewModel.deleteBookmark(args.locationDetail)
+                }
             }
         }
 
