@@ -3,7 +3,7 @@
     <style name="WeatheryTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorEnergyYellow</item>
         <item name="colorPrimaryDark">@color/colorHokeyPokey</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/primaryLightColor</item>
     </style>
 
     <!--<style name="AppTheme.Launcher">
@@ -16,4 +16,29 @@
         <item name="colorAccent">@color/colorWebOrange</item>
     </style>
 
+    <style name="AppTheme.DetailHeader" parent="TextAppearance.MdcTypographyStyles.Headline4">
+        <item name="android:layout_marginTop">@dimen/dimen_30dp</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_15dp</item>
+        <item name="android:layout_marginRight">@dimen/dimen_15dp</item>
+        <item name="android:drawablePadding">@dimen/dimen_10dp</item>
+        <item name="android:textColor">@color/colorTitle</item>
+        <item name="android:maxLines">3</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.DetailExtraInfo" parent="TextAppearance.MdcTypographyStyles.Headline5">
+        <item name="android:layout_marginTop">@dimen/dimen_20dp</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_15dp</item>
+        <item name="android:drawablePadding">@dimen/dimen_8dp</item>
+        <item name="android:textColor">@color/colorSubtitle</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.WeatherDetail" parent="TextAppearance.MdcTypographyStyles.Subtitle2">
+        <item name="android:layout_marginLeft">@dimen/dimen_15dp</item>
+        <item name="android:drawablePadding">@dimen/dimen_8dp</item>
+        <item name="android:textColor">@color/colorSubtitle</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

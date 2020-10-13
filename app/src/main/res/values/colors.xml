@@ -3,8 +3,10 @@
     <color name="colorEnergyYellow">#F9D758</color>
     <color name="colorHokeyPokey">#C3A624</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="primaryLightColor">#ffff89</color>
 
-    <color name="colorTitle">#000000</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorTitle">@color/colorBlack</color>
     <color name="colorSubtitle">#A6000000</color>
 
     <color name="colorViewGrey">#ff989898</color>
