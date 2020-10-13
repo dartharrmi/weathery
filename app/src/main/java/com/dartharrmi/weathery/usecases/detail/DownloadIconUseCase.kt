@@ -1,4 +1,4 @@
-package com.dartharrmi.weathery.usecases
+package com.dartharrmi.weathery.usecases.detail
 
 import android.content.res.Resources
 import android.graphics.drawable.BitmapDrawable
