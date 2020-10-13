@@ -30,7 +30,7 @@ fun Activity.hideKeyBoard() {
     }
 }
 
-fun Double.toStringWithoutScientificNotation(): String {
-    val df = DecimalFormat("###.############")
+fun Double.toStringWithoutScientificNotation(times: Int = 14): String {
+    val df = DecimalFormat("###.${"#".repeat(times)}")
     return df.format(this)
 }

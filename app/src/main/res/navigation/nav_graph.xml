@@ -16,10 +16,23 @@
         <action
             android:id="@+id/action_dest_recipe_list_to_dest_map_search"
             app:destination="@id/dest_map_search" />
+        <action
+            android:id="@+id/action_dest_recipe_list_to_dest_city_detail"
+            app:destination="@id/dest_city_detail" />
     </fragment>
 
     <fragment
         android:id="@+id/dest_map_search"
         android:name="com.dartharrmi.weathery.ui.map.MapFragment"
         tools:layout="@layout/fragment_map" />
+
+    <fragment
+        android:id="@+id/dest_city_detail"
+        android:name="com.dartharrmi.weathery.ui.details.CityDetailFragment"
+        tools:layout="@layout/fragment_city_detail">
+
+        <argument
+            android:name="location_detail"
+            app:argType="com.dartharrmi.weathery.domain.CityWeather" />
+    </fragment>
 </navigation>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="cityBinder"
+            type="com.dartharrmi.weathery.ui.details.LocationDetailViewBinder" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/detailImageHeader"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:layout_collapseMode="parallax"
+            app:layout_collapseParallaxMultiplier="0.7"
+            map:liteMode="true"
+            tools:background="@color/colorEnergyYellow" />
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@null"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+            app:elevation="0dp">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/detailCollapsingLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/detailToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light" />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.dartharrmi.weathery.ui.custom.outline_layout.ClipToOutlineLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorAthensGray"
+                    android:paddingBottom="@dimen/dimen_15dp">
+
+                    <TextView
+                        android:id="@+id/locationDetailTitle"
+                        style="@style/AppTheme.DetailHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{cityBinder.locationTitle}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Bogotá" />
+
+                    <TextView
+                        android:id="@+id/locationDetailWeather"
+                        style="@style/AppTheme.WeatherDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{cityBinder.locationWeather}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/locationDetailTitle"
+                        tools:text="Cloudy" />
+
+                    <TextView
+                        android:id="@+id/locationDetailTemperature"
+                        style="@style/AppTheme.DetailExtraInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_temperature"
+                        android:drawableLeft="@drawable/ic_temperature"
+                        android:drawablePadding="@dimen/dimen_5dp"
+                        android:text="@{cityBinder.locationTemperature}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/locationDetailWeather"
+                        tools:text="11ºC" />
+
+                    <TextView
+                        android:id="@+id/locationFeelsLike"
+                        style="@style/AppTheme.WeatherDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_55dp"
+                        android:layout_marginLeft="@dimen/dimen_55dp"
+                        android:text="@{cityBinder.locationFeelsLike}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/locationDetailTemperature"
+                        tools:text="Feels like " />
+
+                    <TextView
+                        android:id="@+id/locationDetailHumidity"
+                        style="@style/AppTheme.DetailExtraInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_humidity"
+                        android:drawableLeft="@drawable/ic_humidity"
+                        android:drawablePadding="@dimen/dimen_5dp"
+                        android:text="@{cityBinder.locationHumidity}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/locationFeelsLike"
+                        tools:text="32%" />
+
+                    <TextView
+                        android:id="@+id/locationDetailWind"
+                        style="@style/AppTheme.DetailExtraInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_wind_info"
+                        android:drawableLeft="@drawable/ic_wind_info"
+                        android:drawablePadding="@dimen/dimen_5dp"
+                        android:text="@{cityBinder.locationWind}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/locationDetailHumidity"
+                        tools:text="32%" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+        </com.dartharrmi.weathery.ui.custom.outline_layout.ClipToOutlineLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

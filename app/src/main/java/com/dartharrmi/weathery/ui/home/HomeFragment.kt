@@ -3,8 +3,7 @@ package com.dartharrmi.weathery.ui.home
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
-import android.view.ViewTreeObserver.*
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.FragmentResultListener
@@ -41,11 +40,9 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
 
     private fun onCityFoundEvent(event: Event<CityWeather>) {
         when (event.status) {
-            Status.SUCCESS -> Toast.makeText(
-                    requireContext(),
-                    event.data.toString(),
-                    Toast.LENGTH_LONG
-            ).show()
+            Status.SUCCESS -> event.data?.let {
+                findNavController().navigate(HomeFragmentDirections.actionDestRecipeListToDestCityDetail(it))
+            }
             Status.FAILURE -> Toast.makeText(
                     requireContext(),
                     event.throwable.toString(),

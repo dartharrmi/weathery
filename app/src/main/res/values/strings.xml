@@ -3,9 +3,12 @@
 
     <string name="search_hint">Jot some cities...</string>
     <string name="search_button">Search</string>
-    <string name="location_temperature_celsius">%1$dºC</string>
-    <string name="location_temperature_fahrenheit">%1$dºF</string>
-    <string name="location_feels_like_celsius">Feels like %1$dºC</string>
-    <string name="location_feels_like_fahrenheit">Feels like %1$dºF</string>
+    <string name="location_temperature_metric">%1$dºC</string>
+    <string name="location_temperature_imperial">%1$dºF</string>
+    <string name="location_feels_like_metric">Feels like %1$dºC</string>
+    <string name="location_feels_like_imperial">Feels like %1$dºF</string>
     <string name="location_weather">%1$s: %2$s</string>
+    <string name="location_humidity">%1$d%%</string>
+    <string name="location_wind_metric">%1$sm/s - %2$s</string>
+    <string name="location_wind_imperial">%1$smph - Wind Angle: %2$s</string>
 </resources>
