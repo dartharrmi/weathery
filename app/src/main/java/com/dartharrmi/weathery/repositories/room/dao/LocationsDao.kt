@@ -16,9 +16,9 @@ interface LocationsDao {
     suspend fun findByName(name: String): CityWeather
 
     @Insert
-    suspend fun insertAll(vararg locations: CityWeather)
+    suspend fun insertAll(vararg locations: CityWeather): List<Long>
 
     @Delete
-    suspend fun delete(location: CityWeather)
+    suspend fun delete(location: CityWeather): Int
 
 }

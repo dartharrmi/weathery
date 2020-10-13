@@ -11,4 +11,6 @@
     <string name="location_humidity">%1$d%%</string>
     <string name="location_wind_metric">%1$sm/s - %2$s</string>
     <string name="location_wind_imperial">%1$smph - Wind Angle: %2$s</string>
+    <string name="bookmark_save">Location saved to bookmarks</string>
+    <string name="bookmark_remove">Location removed from bookmarks</string>
 </resources>

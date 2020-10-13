@@ -12,7 +12,7 @@ interface IOpenWeatherMapDataSource {
 
         suspend fun getBookmarked(): List<CityWeather>
 
-        suspend fun saveBookmark(cityWeather: CityWeather)
+        suspend fun saveBookmark(cityWeather: CityWeather): List<Long>
     }
 
     interface Remote {
@@ -34,8 +34,8 @@ interface IOpenWeatherMapDataSource {
 
         suspend fun downloadIcon(url: String): Bitmap?
 
-        fun getBookmarked(): List<CityWeather>
+        suspend fun getBookmarked(): List<CityWeather>
 
-        fun saveBookmark(cityWeather: CityWeather)
+        suspend fun saveBookmark(cityWeather: CityWeather): Boolean
     }
 }

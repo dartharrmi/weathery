@@ -7,5 +7,5 @@ import com.dartharrmi.weathery.repositories.room.dao.LocationsDao
 
 @Database(entities = [CityWeather::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract suspend fun locationsDao(): LocationsDao
+    abstract fun locationsDao(): LocationsDao
 }

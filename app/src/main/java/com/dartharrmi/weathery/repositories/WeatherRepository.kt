@@ -14,9 +14,9 @@ class WeatherRepository(private val localDataSource: Local,
 
     override suspend fun findCitiesByLocation(lat: Double, lng: Double) = remote.findCitiesByLocation(lat, lng).toDomain()
 
-    override fun getBookmarked() = localDataSource.getBookmarked()
+    override suspend fun getBookmarked() = localDataSource.getBookmarked()
 
-    override fun saveBookmark(cityWeather: CityWeather) = localDataSource.saveBookmark(cityWeather)
+    override suspend fun saveBookmark(cityWeather: CityWeather) = localDataSource.saveBookmark(cityWeather).size == 1
 
     override suspend fun downloadIcon(url: String) = remote.downloadIcon(url)
 }
