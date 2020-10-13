@@ -1,6 +1,7 @@
 package com.dartharrmi.weathery.webservice
 
 import com.dartharrmi.resipi.webservice.exception.BaseUrlNotProvidedException
+import com.dartharrmi.weathery.webservice.deserializer.CityInfoDeserializer
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
@@ -32,14 +33,13 @@ object WeatheryNetwork {
             throw BaseUrlNotProvidedException(BASE_URL_NOT_PROVIDED_MESSAGE)
         }
 
-        val customGson = GsonBuilder()/*.apply {
-            registerTypeAdapter(InstructionsDeserializer.typeToken, InstructionsDeserializer())
-        }*/.create()
+        val customGson = GsonBuilder().apply {
+            registerTypeAdapter(CityInfoDeserializer.typeToken, CityInfoDeserializer())
+        }.create()
 
         return builder.apply {
             baseUrl(baseUrl)
             client(okHttpClient)
-            addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             addConverterFactory(UnitConverterFactory)
             addConverterFactory(GsonConverterFactory.create(customGson))
         }.build()

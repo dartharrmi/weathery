@@ -14,14 +14,14 @@ interface IOpenWeatherMapDataSource {
         fun saveBookmark(cityWeather: CityWeather)
     }
 
-    interface Remote  {
+    interface Remote {
         fun openWeatherMapApi(): IOpenWeatherMapApi
 
-        fun findCities(query: String): FindCitiesResponseDTO
+        suspend fun findCities(query: String): FindCitiesResponseDTO
     }
 
     interface Repository {
-        fun findCities(query: String): FindCitiesResponse
+        suspend fun findCities(query: String): FindCitiesResponse
 
         fun getBookmarked(): List<CityWeather>
 

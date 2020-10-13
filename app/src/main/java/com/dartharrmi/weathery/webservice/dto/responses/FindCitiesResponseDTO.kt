@@ -3,9 +3,10 @@ package com.dartharrmi.weathery.webservice.dto.responses
 import com.dartharrmi.weathery.domain.responses.FindCitiesResponse
 import com.dartharrmi.weathery.webservice.dto.CityWeatherDTO
 import com.dartharrmi.weathery.webservice.dto.toDomain
+import com.google.gson.annotations.SerializedName
 
 data class FindCitiesResponseDTO(val count: Int?,
-                                 val cities: List<CityWeatherDTO>?,
+                                 @SerializedName("list") val cities: List<CityWeatherDTO>?,
                                  val message: String?)
 
 fun FindCitiesResponseDTO.toDomain() = FindCitiesResponse(

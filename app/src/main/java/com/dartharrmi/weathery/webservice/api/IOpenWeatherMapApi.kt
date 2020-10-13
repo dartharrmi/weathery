@@ -16,5 +16,5 @@ interface IOpenWeatherMapApi {
     }
 
     @GET(FIND)
-    fun searchCities(@Query(PARAM_QUERY) query: String): FindCitiesResponseDTO
+    suspend fun searchCities(@Query(PARAM_QUERY) query: String): FindCitiesResponseDTO
 }

@@ -11,6 +11,8 @@ data class CityWeather(private val lat: Double,
                        private val temperature: Double,
                        private val feelsLike: Double,
                        private val humidity: Double,
-                       private val rainChances: Double,
                        private val windSpeed: Double,
-                       private val windDegree: Double): Parcelable
+                       private val windDegree: Double,
+                       val weatherHeader: String,
+                       val weatherDescription: String,
+                       val weatherIcon: String): Parcelable

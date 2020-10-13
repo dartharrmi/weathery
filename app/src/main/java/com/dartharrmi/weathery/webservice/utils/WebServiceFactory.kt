@@ -18,7 +18,7 @@ object WebServiceFactory {
         publicOkHttpClient: IPublicOkHttpClient
     ): IOpenWeatherMapApi {
         val retrofit = WeatheryNetwork.createRetrofit(
-            BuildConfig.OPENWEATHERMAP_API_KEY,
+            BuildConfig.BASE_URL,
             publicOkHttpClient.create(context)
         )
         return retrofit.create(IOpenWeatherMapApi::class.java)
