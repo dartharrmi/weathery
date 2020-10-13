@@ -152,10 +152,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dimen_20dp"
             android:layout_marginRight="@dimen/dimen_20dp"
+            android:src="@{cityBinder.bookmarked ? @drawable/ic_bookmark_filled : @drawable/ic_bookmark_empty}"
             android:tint="@color/colorBlack"
             app:layout_anchor="@id/detailScrollable"
-            app:layout_anchorGravity="end"
+            app:layout_anchorGravity="end|right"
             app:layout_behavior="com.dartharrmi.weathery.ui.custom.ScrollAwareFabBehaviour"
-            android:src="@{cityBinder.bookmarked ? @drawable/ic_bookmark_filled : @drawable/ic_bookmark_empty}" />
+            tools:src="@drawable/ic_bookmark_filled" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
