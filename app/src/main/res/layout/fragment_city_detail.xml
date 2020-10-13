@@ -55,11 +55,13 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.dartharrmi.weathery.ui.custom.outline_layout.ClipToOutlineLayout
+            android:id="@+id/detailOutlineContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.core.widget.NestedScrollView
+                android:id="@+id/detailScrollable"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true">
@@ -143,5 +145,17 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
         </com.dartharrmi.weathery.ui.custom.outline_layout.ClipToOutlineLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabSearchMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_20dp"
+            android:layout_marginRight="@dimen/dimen_20dp"
+            android:tint="@color/colorBlack"
+            app:layout_anchor="@id/detailScrollable"
+            app:layout_anchorGravity="end"
+            app:layout_behavior="com.dartharrmi.weathery.ui.custom.ScrollAwareFabBehaviour"
+            android:src="@{cityBinder.bookmarked ? @drawable/ic_bookmark_filled : @drawable/ic_bookmark_empty}" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

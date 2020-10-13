@@ -25,9 +25,7 @@ class ClipToOutlineLayout @JvmOverloads constructor(context: Context,
         val backgroundDrawable = RoundRectDrawable(color.white, cornerRadius)
 
         background = backgroundDrawable
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            clipToOutline = true
-        }
+        clipToOutline = true
 
         val collapsedRadius = 0f
         appBarDelegate = AppBarDelegate(this) { state ->

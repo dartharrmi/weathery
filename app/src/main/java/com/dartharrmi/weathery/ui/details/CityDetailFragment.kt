@@ -129,4 +129,6 @@ class LocationDetailViewBinder(private val city: CityWeather, private val contex
             city.windSpeed.toStringWithoutScientificNotation(2),
             city.windDegree.toStringWithoutScientificNotation(2)
     )
+
+    fun isBookmarked() = city.bookmarked
 }
