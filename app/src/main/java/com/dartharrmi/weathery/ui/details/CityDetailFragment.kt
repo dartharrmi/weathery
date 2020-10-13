@@ -12,6 +12,7 @@ import com.dartharrmi.weathery.R
 import com.dartharrmi.weathery.base.BaseApp
 import com.dartharrmi.weathery.base.BaseFragment
 import com.dartharrmi.weathery.databinding.FragmentCityDetailBinding
+import com.dartharrmi.weathery.di.DependencyContainer
 import com.dartharrmi.weathery.domain.CityWeather
 import com.dartharrmi.weathery.ui.livedata.Event
 import com.dartharrmi.weathery.ui.livedata.Status.FAILURE
@@ -34,8 +35,7 @@ class CityDetailFragment: BaseFragment<FragmentCityDetailBinding>() {
     }
 
     private val viewModel: DetailsViewModel by activityViewModelBuilder {
-        val di = (requireActivity().application as BaseApp).dependencyContainer
-        DetailsViewModel(di.downloadIconUseCase)
+        DetailsViewModel(DependencyContainer.downloadIconUseCase, DependencyContainer.saveBookmarkUseCase)
     }
 
     private val args by navArgs<CityDetailFragmentArgs>()

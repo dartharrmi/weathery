@@ -14,6 +14,7 @@ import com.dartharrmi.weathery.R
 import com.dartharrmi.weathery.base.BaseApp
 import com.dartharrmi.weathery.base.BaseFragment
 import com.dartharrmi.weathery.databinding.FragmentHomeBinding
+import com.dartharrmi.weathery.di.DependencyContainer
 import com.dartharrmi.weathery.domain.CityWeather
 import com.dartharrmi.weathery.ui.livedata.Event
 import com.dartharrmi.weathery.ui.livedata.Status
@@ -26,8 +27,7 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 class HomeFragment: BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel: HomeViewModel by activityViewModelBuilder {
-        val di = (requireActivity().application as BaseApp).dependencyContainer
-        HomeViewModel(di.findCitiesByNameUseCase, di.findCitiesByLocationUseCase)
+        HomeViewModel(DependencyContainer.findCitiesByNameUseCase, DependencyContainer.findCitiesByLocationUseCase)
     }
 
     private val cityFoundObserver = Observer<Event<CityWeather>> {
