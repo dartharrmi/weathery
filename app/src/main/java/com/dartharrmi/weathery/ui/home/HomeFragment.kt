@@ -21,7 +21,6 @@ import com.dartharrmi.weathery.ui.livedata.Status
 import com.dartharrmi.weathery.ui.map.MapFragment
 import com.dartharrmi.weathery.utils.activityViewModelBuilder
 import com.dartharrmi.weathery.utils.hideKeyBoard
-import com.dartharrmi.weathery.utils.trimDecimals
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
@@ -80,7 +79,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                 this,
                 FragmentResultListener { requestKey, result ->
                     with(result.get(requestKey) as LatLng) {
-                        viewModel.findCitiesByLocation(this.latitude.trimDecimals(5), this.longitude.trimDecimals(5))
+                        viewModel.findCitiesByLocation(this.latitude, this.longitude)
                     }
                 })
     }

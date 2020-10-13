@@ -4,8 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import java.math.BigDecimal
-import java.math.RoundingMode
+import java.text.DecimalFormat
 
 fun View.gone() {
     visibility = View.GONE
@@ -31,10 +30,7 @@ fun Activity.hideKeyBoard() {
     }
 }
 
-fun Double.trimDecimals(places: Int): Double {
-    require(places >= 0)
-
-    var bd = BigDecimal(toString())
-    bd = bd.setScale(places, RoundingMode.HALF_UP)
-    return bd.toDouble()
+fun Double.toStringWithoutScientificNotation(): String {
+    val df = DecimalFormat("###.############")
+    return df.format(this)
 }
