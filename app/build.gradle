@@ -22,6 +22,7 @@ android {
 
         buildConfigField "String", "OPENWEATHERMAP_API_KEY", '"c6e381d8c7ff98f0fee43775817cf6ad"'
         buildConfigField "String", "BASE_URL", '"https://api.openweathermap.org/data/2.5/"'
+        resValue "string", "google_maps_key", "AIzaSyB6c88ZMz1R6xExKp1X6tUjxF92Q3nRb70"
     }
 
     buildTypes {

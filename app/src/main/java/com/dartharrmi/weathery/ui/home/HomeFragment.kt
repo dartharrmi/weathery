@@ -1,11 +1,14 @@
 package com.dartharrmi.weathery.ui.home
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dartharrmi.weathery.R
 import com.dartharrmi.weathery.base.BaseApp
@@ -14,11 +17,12 @@ import com.dartharrmi.weathery.databinding.FragmentHomeBinding
 import com.dartharrmi.weathery.domain.CityWeather
 import com.dartharrmi.weathery.ui.livedata.Event
 import com.dartharrmi.weathery.ui.livedata.Status
+import com.dartharrmi.weathery.ui.map.MapFragment
 import com.dartharrmi.weathery.utils.activityViewModelBuilder
 import com.dartharrmi.weathery.utils.hideKeyBoard
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment: BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel: HomeViewModel by activityViewModelBuilder {
         val di = (requireActivity().application as BaseApp).dependencyContainer
@@ -35,8 +39,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun onCityFoundEvent(event: Event<CityWeather>) {
         when (event.status) {
-            Status.SUCCESS -> Toast.makeText(requireContext(), event.data.toString(), Toast.LENGTH_LONG).show()
-            Status.FAILURE -> Toast.makeText(requireContext(), event.throwable.toString(), Toast.LENGTH_LONG).show()
+            Status.SUCCESS -> Toast.makeText(
+                    requireContext(),
+                    event.data.toString(),
+                    Toast.LENGTH_LONG
+            ).show()
+            Status.FAILURE -> Toast.makeText(
+                    requireContext(),
+                    event.throwable.toString(),
+                    Toast.LENGTH_LONG
+            ).show()
         }
     }
 
@@ -57,6 +69,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.multipleCitiesEvent.observe(this, multipleCitiesFoundObserver)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        parentFragmentManager.setFragmentResultListener(
+                MapFragment.KEY_SELECTED_LOCATION,
+                this,
+                FragmentResultListener { _, result -> Toast.makeText(requireContext(), result.toString(), Toast.LENGTH_LONG).show() })
+    }
+
     override fun initView(inflater: LayoutInflater, container: ViewGroup?) {
         super.initView(inflater, container)
 
@@ -65,20 +86,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 layoutManager = LinearLayoutManager(getViewContext())
                 // adapter = recipesAdapter
                 viewTreeObserver
-                    .addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-                        override fun onGlobalLayout() {
-                            rvBookmarksList.also {
-                                it.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                        .addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
+                            override fun onGlobalLayout() {
+                                rvBookmarksList.also {
+                                    it.viewTreeObserver.removeOnGlobalLayoutListener(this)
 
-                                val appBarHeight: Int = this@with.appBarLayout.height
-                                it.translationY = -appBarHeight.toFloat()
-                                it.layoutParams.height = rvBookmarksList.height + appBarHeight
+                                    val appBarHeight: Int = this@with.appBarLayout.height
+                                    it.translationY = -appBarHeight.toFloat()
+                                    it.layoutParams.height = rvBookmarksList.height + appBarHeight
+                                }
                             }
-                        }
-                    })
+                        })
             }
 
-            svSearchCity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            svSearchCity.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     //this@CityListFragment.query = query.orEmpty()
                     //emptyState.gone()
@@ -90,6 +111,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
                 override fun onQueryTextChange(newText: String?): Boolean = false
             })
+
+            fabSearchMap.setOnClickListener {
+                findNavController().navigate(R.id.dest_map_search)
+            }
         }
     }
 }

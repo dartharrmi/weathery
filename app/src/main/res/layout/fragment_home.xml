@@ -11,12 +11,21 @@
 
         <ProgressBar
             android:id="@+id/pbLoading"
-            android:indeterminate="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:indeterminate="true"
             android:visibility="gone"
             tools:visibility="visible" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabSearchMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_20dp"
+            app:layout_anchor="@id/rvBookmarksList"
+            app:layout_anchorGravity="bottom|end"
+            app:srcCompat="@drawable/ic_search_map" />
 
         <!--<include
             android:id="@+id/emptyState"
@@ -62,9 +71,9 @@
 
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/svSearchCity"
-                    app:queryHint="@string/search_hint"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    app:queryHint="@string/search_hint" />
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

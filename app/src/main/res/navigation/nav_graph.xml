@@ -13,15 +13,13 @@
         <!--<action
             android:id="@+id/action_dest_recipe_list_to_dest_recipe_details"
             app:destination="@id/dest_recipe_details" />-->
+        <action
+            android:id="@+id/action_dest_recipe_list_to_dest_map_search"
+            app:destination="@id/dest_map_search" />
     </fragment>
 
-    <!--<fragment
-        android:id="@+id/dest_recipe_details"
-        android:name="com.dartharrmi.resipi.ui.recipe_detail.RecipeDetailFragment"
-        tools:layout="@layout/fragment_recipe_detail">
-
-        <argument
-            android:name="recipeArg"
-            app:argType="com.dartharrmi.resipi.domain.Recipe" />
-    </fragment>-->
+    <fragment
+        android:id="@+id/dest_map_search"
+        android:name="com.dartharrmi.weathery.ui.map.MapFragment"
+        tools:layout="@layout/fragment_map" />
 </navigation>
