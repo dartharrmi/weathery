@@ -74,7 +74,7 @@
 
                     <TextView
                         android:id="@+id/locationDetailTitle"
-                        style="@style/AppTheme.DetailHeader"
+                        style="@style/WeatheryTheme.DetailHeader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{cityBinder.locationTitle}"
@@ -84,7 +84,7 @@
 
                     <TextView
                         android:id="@+id/locationDetailWeather"
-                        style="@style/AppTheme.WeatherDetail"
+                        style="@style/WeatheryTheme.WeatherDetail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@{cityBinder.locationWeather}"
@@ -94,7 +94,7 @@
 
                     <TextView
                         android:id="@+id/locationDetailTemperature"
-                        style="@style/AppTheme.DetailExtraInfo"
+                        style="@style/WeatheryTheme.DetailExtraInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_temperature"
@@ -107,7 +107,7 @@
 
                     <TextView
                         android:id="@+id/locationFeelsLike"
-                        style="@style/AppTheme.WeatherDetail"
+                        style="@style/WeatheryTheme.WeatherDetail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_55dp"
@@ -119,7 +119,7 @@
 
                     <TextView
                         android:id="@+id/locationDetailHumidity"
-                        style="@style/AppTheme.DetailExtraInfo"
+                        style="@style/WeatheryTheme.DetailExtraInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_humidity"
@@ -132,7 +132,7 @@
 
                     <TextView
                         android:id="@+id/locationDetailWind"
-                        style="@style/AppTheme.DetailExtraInfo"
+                        style="@style/WeatheryTheme.DetailExtraInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_wind_info"
