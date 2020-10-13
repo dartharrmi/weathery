@@ -10,9 +10,9 @@ interface IOpenWeatherMapDataSource {
 
     interface Local {
 
-        fun getBookmarked(): List<CityWeather>
+        suspend fun getBookmarked(): List<CityWeather>
 
-        fun saveBookmark(cityWeather: CityWeather)
+        suspend fun saveBookmark(cityWeather: CityWeather)
     }
 
     interface Remote {

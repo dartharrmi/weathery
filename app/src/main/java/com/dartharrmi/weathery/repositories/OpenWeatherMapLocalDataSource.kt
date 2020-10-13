@@ -1,17 +1,13 @@
 package com.dartharrmi.weathery.repositories
 
-import android.content.Context
 import com.dartharrmi.weathery.domain.CityWeather
 import com.dartharrmi.weathery.repositories.IOpenWeatherMapDataSource.Local
-import com.dartharrmi.weathery.repositories.IOpenWeatherMapDataSource.Remote
-import com.dartharrmi.weathery.webservice.dto.responses.FindCitiesResponseDTO
-import com.dartharrmi.weathery.webservice.utils.IPublicOkHttpClient
-import com.dartharrmi.weathery.webservice.utils.WebServiceFactory
+import com.dartharrmi.weathery.repositories.room.AppDatabase
 
-class OpenWeatherMapLocalDataSource(private val context: Context) : Local {
+class OpenWeatherMapLocalDataSource(private val db: AppDatabase) : Local {
 
-    override fun getBookmarked(): List<CityWeather> = emptyList()
+    override suspend fun getBookmarked(): List<CityWeather> = db.locationsDao().getAll()
 
-    override fun saveBookmark(cityWeather: CityWeather) {
+    override suspend fun saveBookmark(cityWeather: CityWeather) {
     }
 }
