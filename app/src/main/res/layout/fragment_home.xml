@@ -31,7 +31,7 @@
             Needs to apply a padding top for drawing the first child just below the AppBarLayout
          -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvRecipesList"
+            android:id="@+id/rvBookmarksList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
@@ -61,7 +61,7 @@
                 app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay">
 
                 <androidx.appcompat.widget.SearchView
-                    android:id="@+id/svSearchRecipe"
+                    android:id="@+id/svSearchCity"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </androidx.appcompat.widget.Toolbar>
