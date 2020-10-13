@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 fun View.gone() {
     visibility = View.GONE
@@ -23,8 +25,16 @@ fun Any.className(): String = this::class.java.simpleName
 
 fun Activity.hideKeyBoard() {
     val inputManager: InputMethodManager =
-        getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputManager.apply {
         hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.SHOW_FORCED)
     }
+}
+
+fun Double.trimDecimals(places: Int): Double {
+    require(places >= 0)
+
+    var bd = BigDecimal(toString())
+    bd = bd.setScale(places, RoundingMode.HALF_UP)
+    return bd.toDouble()
 }

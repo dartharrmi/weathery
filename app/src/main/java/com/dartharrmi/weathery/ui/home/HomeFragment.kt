@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.view.ViewTreeObserver.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.FragmentResultListener
@@ -20,13 +21,15 @@ import com.dartharrmi.weathery.ui.livedata.Status
 import com.dartharrmi.weathery.ui.map.MapFragment
 import com.dartharrmi.weathery.utils.activityViewModelBuilder
 import com.dartharrmi.weathery.utils.hideKeyBoard
+import com.dartharrmi.weathery.utils.trimDecimals
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment: BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel: HomeViewModel by activityViewModelBuilder {
         val di = (requireActivity().application as BaseApp).dependencyContainer
-        HomeViewModel(di.findCitiesUseCase)
+        HomeViewModel(di.findCitiesByNameUseCase, di.findCitiesByLocationUseCase)
     }
 
     private val cityFoundObserver = Observer<Event<CityWeather>> {
@@ -75,7 +78,11 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         parentFragmentManager.setFragmentResultListener(
                 MapFragment.KEY_SELECTED_LOCATION,
                 this,
-                FragmentResultListener { _, result -> Toast.makeText(requireContext(), result.toString(), Toast.LENGTH_LONG).show() })
+                FragmentResultListener { requestKey, result ->
+                    with(result.get(requestKey) as LatLng) {
+                        viewModel.findCitiesByLocation(this.latitude.trimDecimals(5), this.longitude.trimDecimals(5))
+                    }
+                })
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?) {
@@ -86,7 +93,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                 layoutManager = LinearLayoutManager(getViewContext())
                 // adapter = recipesAdapter
                 viewTreeObserver
-                        .addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
+                        .addOnGlobalLayoutListener(object: OnGlobalLayoutListener {
                             override fun onGlobalLayout() {
                                 rvBookmarksList.also {
                                     it.viewTreeObserver.removeOnGlobalLayoutListener(this)
@@ -103,7 +110,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     //this@CityListFragment.query = query.orEmpty()
                     //emptyState.gone()
-                    viewModel.findCities(query.orEmpty())
+                    viewModel.findCitiesByName(query.orEmpty())
                     requireActivity().hideKeyBoard()
 
                     return true

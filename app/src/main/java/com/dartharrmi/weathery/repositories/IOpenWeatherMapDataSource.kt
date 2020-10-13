@@ -15,13 +15,19 @@ interface IOpenWeatherMapDataSource {
     }
 
     interface Remote {
+
         fun openWeatherMapApi(): IOpenWeatherMapApi
 
-        suspend fun findCities(query: String): FindCitiesResponseDTO
+        suspend fun findCitiesByName(query: String): FindCitiesResponseDTO
+
+        suspend fun findCitiesByLocation(lat: Double, lng: Double): FindCitiesResponseDTO
     }
 
     interface Repository {
-        suspend fun findCities(query: String): FindCitiesResponse
+
+        suspend fun findCitiesByName(query: String): FindCitiesResponse
+
+        suspend fun findCitiesByLocation(lat: Double, lng: Double): FindCitiesResponse
 
         fun getBookmarked(): List<CityWeather>
 

@@ -3,6 +3,7 @@ package com.dartharrmi.weathery.webservice
 import com.dartharrmi.resipi.webservice.exception.BaseUrlNotProvidedException
 import com.dartharrmi.weathery.webservice.deserializer.CityInfoDeserializer
 import com.google.gson.GsonBuilder
+import com.google.gson.LongSerializationPolicy.STRING
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import retrofit2.Converter
@@ -35,6 +36,8 @@ object WeatheryNetwork {
 
         val customGson = GsonBuilder().apply {
             registerTypeAdapter(CityInfoDeserializer.typeToken, CityInfoDeserializer())
+            setLongSerializationPolicy(STRING)
+            setPrettyPrinting()
         }.create()
 
         return builder.apply {
