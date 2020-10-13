@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.dartharrmi.weathery.base.BaseViewModel
 import com.dartharrmi.weathery.domain.CityWeather
 import com.dartharrmi.weathery.ui.livedata.Event
-import com.dartharrmi.weathery.usecases.IFindCitiesByLocationUseCase
-import com.dartharrmi.weathery.usecases.IFindCitiesByNameUseCase
+import com.dartharrmi.weathery.usecases.home.IFindCitiesByLocationUseCase
+import com.dartharrmi.weathery.usecases.home.IFindCitiesByNameUseCase
 import com.dartharrmi.weathery.utils.Logger
 import com.dartharrmi.weathery.utils.Logger.LOGE
 import kotlinx.coroutines.launch

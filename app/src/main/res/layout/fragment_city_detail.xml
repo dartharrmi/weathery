@@ -147,7 +147,7 @@
         </com.dartharrmi.weathery.ui.custom.outline_layout.ClipToOutlineLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabSearchMap"
+            android:id="@+id/fabSaveBookmark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dimen_20dp"

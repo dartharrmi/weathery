@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.dartharrmi.weathery.R
-import com.dartharrmi.weathery.base.BaseApp
 import com.dartharrmi.weathery.base.BaseFragment
 import com.dartharrmi.weathery.databinding.FragmentCityDetailBinding
 import com.dartharrmi.weathery.di.DependencyContainer
@@ -20,11 +19,11 @@ import com.dartharrmi.weathery.ui.livedata.Status.SUCCESS
 import com.dartharrmi.weathery.utils.activityViewModelBuilder
 import com.dartharrmi.weathery.utils.toStringWithoutScientificNotation
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMapOptions
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.UiSettings
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_city_detail.*
 import kotlinx.android.synthetic.main.fragment_city_detail.view.*
 
 class CityDetailFragment: BaseFragment<FragmentCityDetailBinding>() {
@@ -55,12 +54,27 @@ class CityDetailFragment: BaseFragment<FragmentCityDetailBinding>() {
         }
     }
 
+    private val saveBookmarkObserver = Observer<Event<Boolean>> {
+        onSaveBookmarkEvent(it)
+    }
+
+    private fun onSaveBookmarkEvent(event: Event<Boolean>) {
+        when (event.status) {
+            SUCCESS -> {
+                fabSaveBookmark.setImageResource(R.drawable.ic_bookmark_filled)
+                Snackbar.make(fabSaveBookmark, R.string.bookmark_save, Snackbar.LENGTH_LONG).show()
+            }
+            FAILURE -> Snackbar.make(fabSaveBookmark, R.string.bookmark_save, Snackbar.LENGTH_LONG).show()
+        }
+    }
+
     override fun getLayoutId() = R.layout.fragment_city_detail
 
     override fun getVariablesToBind(): Map<Int, Any> = emptyMap()
 
     override fun initObservers() {
         viewModel.downloadIconEvent.observe(this, cityFoundObserver)
+        viewModel.saveBookmarkEvent.observe(this, saveBookmarkObserver)
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?) {
@@ -69,22 +83,9 @@ class CityDetailFragment: BaseFragment<FragmentCityDetailBinding>() {
         dataBinding.cityBinder = LocationDetailViewBinder(args.locationDetail, requireContext())
         initGoogleMap()
         with(dataBinding.root) {
-            /*cardServings.text = getString(R.string.recipe_pill_srvings, args.recipeArg.servings.toString())
-            cardReadyTime.text = getString(R.string.recipe_pill_cook_time, Utils.parseMinutes(args.recipeArg.readyInMinutes))
-            args.recipeArg.nutrition.caloricBreakdown.run {
-                recipeFat.text = getString(R.string.recipe_pill_fat, this.percentFat.toString())
-                recipeCalories.text = getString(R.string.recipe_pill_cal, this.percentProtein.toString())
-                recipeCarbs.text = getString(R.string.recipe_pill_carbs, this.percentCarbs.toString())
-
+            fabSaveBookmark.setOnClickListener {
+                viewModel.saveBookmark(args.locationDetail)
             }
-            recipeIngredients.apply {
-                layoutManager = LinearLayoutManager(requireContext())
-                adapter = RecipeIngredientsAdapter(args.recipeArg.ingredients.map { ingredient -> ingredient.originalString })
-            }
-            recipeSteps.apply {
-                layoutManager = LinearLayoutManager(requireContext())
-                adapter = RecipeStepAdapter(args.recipeArg.analyzedInstructions)
-            }*/
         }
 
         viewModel.downloadIcon(requireContext().resources, args.locationDetail.weatherIcon)
