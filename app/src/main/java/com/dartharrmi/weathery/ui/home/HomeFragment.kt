@@ -1,28 +1,60 @@
-package com.dartharrmi.weathery.ui.city_list
+package com.dartharrmi.weathery.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dartharrmi.weathery.R
+import com.dartharrmi.weathery.base.BaseApp
 import com.dartharrmi.weathery.base.BaseFragment
-import com.dartharrmi.weathery.databinding.FragmentCityListBinding
+import com.dartharrmi.weathery.databinding.FragmentHomeBinding
+import com.dartharrmi.weathery.domain.CityWeather
+import com.dartharrmi.weathery.ui.livedata.Event
+import com.dartharrmi.weathery.ui.livedata.Status
 import com.dartharrmi.weathery.utils.activityViewModelBuilder
 import com.dartharrmi.weathery.utils.hideKeyBoard
-import kotlinx.android.synthetic.main.fragment_city_list.view.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
-class CityListFragment : BaseFragment<FragmentCityListBinding>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel: HomeViewModel by activityViewModelBuilder {
-        HomeViewModel()
+        val di = (requireActivity().application as BaseApp).dependencyContainer
+        HomeViewModel(di.findCitiesUseCase)
     }
 
-    override fun getLayoutId() = R.layout.fragment_city_list
+    private val cityFoundObserver = Observer<Event<CityWeather>> {
+        onCityFoundEvent(it)
+    }
+
+    private val multipleCitiesFoundObserver = Observer<Event<List<CityWeather>>> {
+        onMultipleCitiesFoundEvent(it)
+    }
+
+    private fun onCityFoundEvent(event: Event<CityWeather>) {
+        when (event.status) {
+            Status.SUCCESS -> Toast.makeText(requireContext(), event.data.toString(), Toast.LENGTH_LONG).show()
+            Status.FAILURE -> Toast.makeText(requireContext(), event.throwable.toString(), Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun onMultipleCitiesFoundEvent(event: Event<List<CityWeather>>) {
+        when (event.status) {
+            Status.SUCCESS -> Toast.makeText(requireContext(), event.data.toString(), Toast.LENGTH_LONG).show()
+            Status.FAILURE -> Toast.makeText(requireContext(), event.throwable.toString(), Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun getLayoutId() = R.layout.fragment_home
 
     override fun getVariablesToBind(): Map<Int, Any> = emptyMap()
 
     override fun initObservers() {
+        viewModel.isLoadingEvent.observe(this, isLoadingObserver)
+        viewModel.cityFoundEvent.observe(this, cityFoundObserver)
+        viewModel.multipleCitiesEvent.observe(this, multipleCitiesFoundObserver)
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?) {
@@ -46,12 +78,11 @@ class CityListFragment : BaseFragment<FragmentCityListBinding>() {
                     })
             }
 
-            //svSearchCity.queryHint = getString(R.string.search_view_hint)
             svSearchCity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     //this@CityListFragment.query = query.orEmpty()
                     //emptyState.gone()
-                    //search(query.orEmpty())
+                    viewModel.findCities(query.orEmpty())
                     requireActivity().hideKeyBoard()
 
                     return true
