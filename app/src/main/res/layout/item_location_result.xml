@@ -30,6 +30,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_20dp"
                 android:layout_marginBottom="@dimen/dimen_15dp"
+                android:ellipsize="marquee"
+                android:maxLines="2"
                 android:text="@{bookmarkViewBinder.bookmarkTitle}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,11 +46,13 @@
                 android:layout_marginStart="@dimen/dimen_20dp"
                 android:layout_marginLeft="@dimen/dimen_20dp"
                 android:text="@{bookmarkViewBinder.bookmarkLatitude}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/locationResultTitle"
                 app:layout_constraintTop_toTopOf="@id/locationResultTitle"
                 tools:text="-74.123456789" />
 
             <TextView
+
                 android:id="@+id/locationResultLongitude"
                 style="@style/WeatheryTheme.WeatherDetail"
                 android:layout_width="wrap_content"
@@ -57,6 +61,7 @@
                 android:layout_marginLeft="@dimen/dimen_20dp"
                 android:text="@{bookmarkViewBinder.bookmarkLongitude}"
                 app:layout_constraintBottom_toBottomOf="@id/locationResultTitle"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/locationResultTitle"
                 tools:text="-74.123456789" />
 

@@ -27,7 +27,11 @@ class LocationResultsViewBinder(private val context: Context,
                                 private val city: CityWeather,
                                 private val onResultSelected: (selectedDocumentOption: CityWeather) -> Unit) {
 
-    fun getBookmarkTitle() = city.name
+    fun getBookmarkTitle() = if (city.name.contains(" ")) {
+        city.name.replace(" ", "\n")
+    } else {
+        city.name
+    }
 
     fun getBookmarkLatitude() = context.getString(R.string.bookmark_lat, city.lat.toStringWithoutScientificNotation(5))
 
