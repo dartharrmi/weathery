@@ -1,5 +1,6 @@
 package com.dartharrmi.weathery.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,13 +12,16 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.dartharrmi.weathery.R
 import com.dartharrmi.weathery.base.BaseFragment
 import com.dartharrmi.weathery.databinding.FragmentHomeBinding
 import com.dartharrmi.weathery.di.DependencyContainer
 import com.dartharrmi.weathery.domain.CityWeather
 import com.dartharrmi.weathery.ui.home.adapter.BookmarksAdapter
+import com.dartharrmi.weathery.ui.home.adapter.SwipeToDeleteCallback
 import com.dartharrmi.weathery.ui.livedata.Event
 import com.dartharrmi.weathery.ui.livedata.Status
 import com.dartharrmi.weathery.ui.map.MapFragment
@@ -39,6 +43,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                 DependencyContainer.getBookmarkUseCase
         )
     }
+    private lateinit var adapter: BookmarksAdapter
 
     private val cityFoundObserver = Observer<Event<CityWeather>> {
         onCityFoundEvent(it)
@@ -76,9 +81,10 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         when (event.status) {
             Status.SUCCESS -> {
                 if (event.data?.isNotEmpty() == true) {
-                    rvBookmarksList.adapter = BookmarksAdapter(requireContext(), event.data) {
+                    adapter = BookmarksAdapter(requireContext(), event.data.toMutableList()) {
                         findNavController().navigate(HomeFragmentDirections.actionDestRecipeListToDestCityDetail(it))
                     }
+                    rvBookmarksList.adapter = adapter
                 } else {
                     emptyState.visible()
                 }
@@ -152,8 +158,32 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
             fabSearchMap.setOnClickListener {
                 findNavController().navigate(R.id.dest_map_search)
             }
+
+            setUpSwipeToDeleteAndUndo()
         }
 
         viewModel.getBookmarks()
+    }
+
+    private fun setUpSwipeToDeleteAndUndo() {
+        val swipeToDeleteCallback: SwipeToDeleteCallback = object: SwipeToDeleteCallback(requireContext()) {
+
+            override fun onSwiped(viewHolder: ViewHolder, i: Int) {
+                val position = viewHolder.bindingAdapterPosition
+                val bookmark: CityWeather = adapter.get(position)
+                adapter.remove(position)
+
+                Snackbar.make(homeContainer, R.string.bookmark_remove_confirmation, Snackbar.LENGTH_LONG).apply {
+                    setAction(R.string.bookmark_remove_action) {
+                        adapter.restore(position, bookmark)
+                        rvBookmarksList.scrollToPosition(position)
+                    }
+                    setActionTextColor(Color.YELLOW)
+                }.show()
+            }
+        }
+
+        val touchHelper = ItemTouchHelper(swipeToDeleteCallback)
+        touchHelper.attachToRecyclerView(rvBookmarksList)
     }
 }
