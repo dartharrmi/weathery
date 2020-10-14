@@ -1,4 +1,4 @@
-package com.dartharrmi.weathery.usecases.detail
+package com.dartharrmi.weathery.usecases.common
 
 import com.dartharrmi.weathery.domain.CityWeather
 import com.dartharrmi.weathery.repositories.IOpenWeatherMapDataSource.Repository

@@ -9,6 +9,7 @@ import com.dartharrmi.weathery.repositories.OpenWeatherMapLocalDataSource
 import com.dartharrmi.weathery.repositories.OpenWeatherMapRemoteDataSource
 import com.dartharrmi.weathery.repositories.WeatherRepository
 import com.dartharrmi.weathery.repositories.room.AppDatabase
+import com.dartharrmi.weathery.usecases.common.DeleteBookmarkUseCase
 import com.dartharrmi.weathery.usecases.detail.*
 import com.dartharrmi.weathery.usecases.home.FindCitiesByLocationUseCase
 import com.dartharrmi.weathery.usecases.home.FindCitiesByNameUseCase

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.dartharrmi.weathery.base.BaseViewModel
 import com.dartharrmi.weathery.domain.CityWeather
 import com.dartharrmi.weathery.ui.livedata.Event
+import com.dartharrmi.weathery.usecases.common.IDeleteBookmarkUseCase
 import com.dartharrmi.weathery.usecases.detail.IGetBookmarkUseCase
 import com.dartharrmi.weathery.usecases.home.IFindCitiesByLocationUseCase
 import com.dartharrmi.weathery.usecases.home.IFindCitiesByNameUseCase

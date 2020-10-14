@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.dartharrmi.weathery.base.BaseViewModel
 import com.dartharrmi.weathery.domain.CityWeather
 import com.dartharrmi.weathery.ui.livedata.Event
-import com.dartharrmi.weathery.usecases.detail.IDeleteBookmarkUseCase
+import com.dartharrmi.weathery.usecases.common.IDeleteBookmarkUseCase
 import com.dartharrmi.weathery.usecases.detail.IDownloadIconUseCase
 import com.dartharrmi.weathery.usecases.detail.ISaveBookmarkUseCase
 import com.dartharrmi.weathery.utils.Logger
