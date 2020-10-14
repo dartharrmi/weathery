@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="line">
+
+    <size android:height="@dimen/dimen_10dp" />
+
+    <padding
+        android:left="@dimen/dimen_10dp"
+        android:right="@dimen/dimen_10dp" />
+
+    <stroke
+        android:width="@dimen/dimen_1dp"
+        android:color="@color/colorRecyclerDivider" />
+</shape>

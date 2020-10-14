@@ -6,15 +6,18 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dartharrmi.weathery.R
 import com.dartharrmi.weathery.base.BaseFragment
 import com.dartharrmi.weathery.databinding.FragmentHomeBinding
 import com.dartharrmi.weathery.di.DependencyContainer
 import com.dartharrmi.weathery.domain.CityWeather
+import com.dartharrmi.weathery.ui.home.adapter.BookmarksAdapter
 import com.dartharrmi.weathery.ui.livedata.Event
 import com.dartharrmi.weathery.ui.livedata.Status
 import com.dartharrmi.weathery.ui.map.MapFragment
@@ -31,9 +34,9 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel: HomeViewModel by activityViewModelBuilder {
         HomeViewModel(
-            DependencyContainer.findCitiesByNameUseCase,
-            DependencyContainer.findCitiesByLocationUseCase,
-            DependencyContainer.getBookmarkUseCase
+                DependencyContainer.findCitiesByNameUseCase,
+                DependencyContainer.findCitiesByLocationUseCase,
+                DependencyContainer.getBookmarkUseCase
         )
     }
 
@@ -73,7 +76,9 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         when (event.status) {
             Status.SUCCESS -> {
                 if (event.data?.isNotEmpty() == true) {
-
+                    rvBookmarksList.adapter = BookmarksAdapter(requireContext(), event.data) {
+                        findNavController().navigate(HomeFragmentDirections.actionDestRecipeListToDestCityDetail(it))
+                    }
                 } else {
                     emptyState.visible()
                 }
@@ -113,7 +118,12 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         with(dataBinding.root) {
             rvBookmarksList.apply {
                 layoutManager = LinearLayoutManager(getViewContext())
-                // adapter = recipesAdapter
+                addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL).apply {
+                    ContextCompat.getDrawable(requireContext(), R.drawable.drawable_document_separator)?.let {
+                        setDrawable(it)
+                    }
+                })
+
                 viewTreeObserver
                         .addOnGlobalLayoutListener(object: OnGlobalLayoutListener {
                             override fun onGlobalLayout() {

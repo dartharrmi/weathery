@@ -16,4 +16,6 @@
     <string name="bookmark_remove">Location removed from bookmarks</string>
     <string name="bookmark_remove_error">Oops! Try removing this location from bookmarks later</string>
     <string name="empty_state">Try searching the weather in your area \nOr maybe, just open your window and look out.</string>
+    <string name="bookmark_lat">Latitude: %1$s</string>
+    <string name="bookmark_lon">Longitude: %1$s</string>
 </resources>

@@ -14,6 +14,8 @@
     <color name="colorAthensGray">#E9E9ED</color>
     <color name="colorStrokeLine">@color/colorHokeyPokey</color>
 
+    <color name="colorRecyclerDivider">#d7d7d7</color>
+
     <!-- LoadingView START-->
     <color name="colorLoadingTranslucent">#B000</color>
     <color name="colorWebOrange">#ffab00</color>

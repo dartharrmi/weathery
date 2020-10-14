@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="bookmarkViewBinder"
+            type="com.dartharrmi.weathery.ui.home.adapter.BookmarkViewBinder" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_15dp"
+        android:layout_marginEnd="@dimen/dimen_15dp"
+        android:onClick="@{_ -> bookmarkViewBinder.onBookmarkClicked()}"
+        app:cardCornerRadius="@dimen/dimen_5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/bookmarkTitle"
+                style="@style/WeatheryTheme.DetailHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_30dp"
+                android:text="@{bookmarkViewBinder.bookmarkTitle}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Bogotá" />
+
+            <TextView
+                android:id="@+id/bookmarkLatitude"
+                style="@style/WeatheryTheme.WeatherDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginLeft="@dimen/dimen_20dp"
+                android:text="@{bookmarkViewBinder.bookmarkLatitude}"
+                app:layout_constraintStart_toEndOf="@id/bookmarkTitle"
+                app:layout_constraintTop_toTopOf="@id/bookmarkTitle"
+                tools:text="-74.123456789" />
+
+            <TextView
+                android:id="@+id/bookmarkLongitude"
+                style="@style/WeatheryTheme.WeatherDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginLeft="@dimen/dimen_20dp"
+                android:text="@{bookmarkViewBinder.bookmarkLongitude}"
+                app:layout_constraintBottom_toBottomOf="@id/bookmarkTitle"
+                app:layout_constraintStart_toEndOf="@id/bookmarkTitle"
+                tools:text="-74.123456789" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
