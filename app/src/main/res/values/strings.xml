@@ -20,4 +20,5 @@
     <string name="bookmark_lon">Longitude: %1$s</string>
     <string name="bookmark_remove_confirmation">"Bookmark removed"</string>
     <string name="bookmark_remove_action">Undo</string>
+    <string name="location_result_header">Multiple locations found</string>
 </resources>

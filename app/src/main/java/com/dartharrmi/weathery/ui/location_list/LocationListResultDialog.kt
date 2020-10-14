@@ -2,22 +2,18 @@ package com.dartharrmi.weathery.ui.location_list
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dartharrmi.weathery.R
 import com.dartharrmi.weathery.base.BaseBottomDialogFragment
-import com.dartharrmi.weathery.databinding.ItemLocationResultBinding
+import com.dartharrmi.weathery.databinding.FragmentLocationResultListBinding
 import com.dartharrmi.weathery.domain.CityWeather
 import com.dartharrmi.weathery.ui.home.HomeFragmentDirections
 import com.dartharrmi.weathery.ui.home.adapter.LocationResultsAdapter
-import kotlinx.android.synthetic.main.fragment_location_result_list.*
 import kotlinx.android.synthetic.main.fragment_location_result_list.view.*
 
-class LocationListResultDialog: BaseBottomDialogFragment<ItemLocationResultBinding>() {
+class LocationListResultDialog: BaseBottomDialogFragment<FragmentLocationResultListBinding>() {
 
     companion object {
 
@@ -55,19 +51,13 @@ class LocationListResultDialog: BaseBottomDialogFragment<ItemLocationResultBindi
 
         dataBinding.root.rvLocationResultList.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL).apply {
-                ContextCompat.getDrawable(requireContext(), R.drawable.drawable_document_separator)?.let {
-                    setDrawable(it)
-                }
-            })
             adapter = LocationResultsAdapter(requireContext(), results) {
-
                 findNavController().navigate(HomeFragmentDirections.actionDestRecipeListToDestCityDetail(it))
             }
         }
     }
 
-    override fun getLayoutId() = R.layout.item_location_result
+    override fun getLayoutId() = R.layout.fragment_location_result_list
 
     override fun getVariablesToBind(): Map<Int, Any> = emptyMap()
 

@@ -14,7 +14,7 @@ class LocationResultsAdapter(private val context: Context,
     override fun getItemCount() = results.size
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        val binder = BookmarkViewBinder(context, results[position], onResultSelected)
+        val binder = LocationResultsViewBinder(context, results[position], onResultSelected)
         holder.bind(binder)
     }
 

@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_15dp"
         android:layout_marginEnd="@dimen/dimen_15dp"
+        android:layout_marginBottom="@dimen/dimen_15dp"
         android:onClick="@{_ -> bookmarkViewBinder.onBookmarkClicked()}"
         app:cardCornerRadius="@dimen/dimen_5dp">
 
@@ -27,7 +28,8 @@
                 style="@style/WeatheryTheme.DetailHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dimen_30dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:layout_marginBottom="@dimen/dimen_15dp"
                 android:text="@{bookmarkViewBinder.bookmarkTitle}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

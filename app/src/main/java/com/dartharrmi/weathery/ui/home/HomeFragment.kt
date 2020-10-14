@@ -71,7 +71,9 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         when (event.status) {
             Status.SUCCESS -> {
                 event.data?.let {
-                    findNavController().navigate(HomeFragmentDirections.actionDestRecipeListToDestCityDetail(it[0]))
+                    val dialog = LocationListResultDialog.newInstance(it)
+                    dialog.show(childFragmentManager, LocationListResultDialog.TAG)
+                    // findNavController().navigate(HomeFragmentDirections.actionDestRecipeListToDestCityDetail(it[0]))
                 }
             }
 
