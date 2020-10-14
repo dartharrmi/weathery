@@ -15,6 +15,8 @@ import java.util.concurrent.TimeUnit
 object WeatheryOkHttpClient {
 
     const val PARAM_API_KEY = "appid"
+    const val PARAM_UNITS = "units"
+    const val METRIC = "metric"
 
     private var logLevel: HttpLoggingInterceptor.Level = HttpLoggingInterceptor.Level.BODY
     private var timeOutInSeconds: Long = 60
@@ -75,6 +77,7 @@ object WeatheryOkHttpClient {
 
                 val url = originalHttpUrl.newBuilder().also {
                     it.addQueryParameter(PARAM_API_KEY, BuildConfig.OPENWEATHERMAP_API_KEY)
+                    it.addQueryParameter(PARAM_UNITS, METRIC)
                 }.build()
 
                 // Request customization: add request headers

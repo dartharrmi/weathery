@@ -24,6 +24,7 @@ import com.dartharrmi.weathery.ui.home.adapter.BookmarksAdapter
 import com.dartharrmi.weathery.ui.home.adapter.SwipeToDeleteCallback
 import com.dartharrmi.weathery.ui.livedata.Event
 import com.dartharrmi.weathery.ui.livedata.Status
+import com.dartharrmi.weathery.ui.location_list.LocationListResultDialog
 import com.dartharrmi.weathery.ui.map.MapFragment
 import com.dartharrmi.weathery.utils.activityViewModelBuilder
 import com.dartharrmi.weathery.utils.hideKeyBoard
@@ -68,7 +69,12 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
 
     private fun onMultipleCitiesFoundEvent(event: Event<List<CityWeather>>) {
         when (event.status) {
-            Status.SUCCESS -> Toast.makeText(requireContext(), event.data.toString(), Toast.LENGTH_LONG).show()
+            Status.SUCCESS -> {
+                event.data?.let {
+                    findNavController().navigate(HomeFragmentDirections.actionDestRecipeListToDestCityDetail(it[0]))
+                }
+            }
+
             Status.FAILURE -> Toast.makeText(requireContext(), event.throwable.toString(), Toast.LENGTH_LONG).show()
         }
     }
