@@ -44,7 +44,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                 DependencyContainer.getBookmarkUseCase
         )
     }
-    private lateinit var adapter: BookmarksAdapter
+    private lateinit var bookmarksAdapter: BookmarksAdapter
 
     private val cityFoundObserver = Observer<Event<CityWeather>> {
         onCityFoundEvent(it)
@@ -89,10 +89,10 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         when (event.status) {
             Status.SUCCESS -> {
                 if (event.data?.isNotEmpty() == true) {
-                    adapter = BookmarksAdapter(requireContext(), event.data.toMutableList()) {
+                    bookmarksAdapter = BookmarksAdapter(requireContext(), event.data.toMutableList()) {
                         findNavController().navigate(HomeFragmentDirections.actionDestRecipeListToDestCityDetail(it))
                     }
-                    rvBookmarksList.adapter = adapter
+                    rvBookmarksList.adapter = bookmarksAdapter
                 } else {
                     emptyState.visible()
                 }
@@ -129,8 +129,10 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
     override fun initView(inflater: LayoutInflater, container: ViewGroup?) {
         super.initView(inflater, container)
 
+        bookmarksAdapter = BookmarksAdapter(getViewContext())
         with(dataBinding.root) {
             rvBookmarksList.apply {
+                this.adapter = bookmarksAdapter
                 layoutManager = LinearLayoutManager(getViewContext())
                 addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL).apply {
                     ContextCompat.getDrawable(requireContext(), R.drawable.drawable_document_separator)?.let {
@@ -151,6 +153,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                             }
                         })
             }
+            setUpSwipeToDeleteAndUndo()
 
             svSearchCity.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
@@ -166,8 +169,6 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
             fabSearchMap.setOnClickListener {
                 findNavController().navigate(R.id.dest_map_search)
             }
-
-            setUpSwipeToDeleteAndUndo()
         }
 
         viewModel.getBookmarks()
@@ -178,12 +179,12 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
 
             override fun onSwiped(viewHolder: ViewHolder, i: Int) {
                 val position = viewHolder.bindingAdapterPosition
-                val bookmark: CityWeather = adapter.get(position)
-                adapter.remove(position)
+                val bookmark: CityWeather = bookmarksAdapter.get(position)
+                bookmarksAdapter.remove(position)
 
                 Snackbar.make(homeContainer, R.string.bookmark_remove_confirmation, Snackbar.LENGTH_LONG).apply {
                     setAction(R.string.bookmark_remove_action) {
-                        adapter.restore(position, bookmark)
+                        bookmarksAdapter.restore(position, bookmark)
                         rvBookmarksList.scrollToPosition(position)
                     }
                     setActionTextColor(Color.YELLOW)
@@ -192,6 +193,6 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         }
 
         val touchHelper = ItemTouchHelper(swipeToDeleteCallback)
-        touchHelper.attachToRecyclerView(rvBookmarksList)
+        touchHelper.attachToRecyclerView(dataBinding.root.rvBookmarksList)
     }
 }

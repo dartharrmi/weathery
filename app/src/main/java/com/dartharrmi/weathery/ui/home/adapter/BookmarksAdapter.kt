@@ -8,8 +8,8 @@ import com.dartharrmi.weathery.domain.CityWeather
 import com.dartharrmi.weathery.utils.toStringWithoutScientificNotation
 
 class BookmarksAdapter(private val context: Context,
-                       private val bookmarks: MutableList<CityWeather>,
-                       private val onBookmarkSelected: (selectedDocumentOption: CityWeather) -> Unit): BaseRecyclerViewAdapter(bookmarks) {
+                       private val bookmarks: MutableList<CityWeather> = mutableListOf(),
+                       private val onBookmarkSelected: (selectedDocumentOption: CityWeather) -> Unit = {}): BaseRecyclerViewAdapter(bookmarks) {
 
     override fun getItemCount() = bookmarks.size
 
