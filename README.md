@@ -1,7 +1,5 @@
-# Resepi - Sample Reference Project
-Pronouns like `ˈresəˌpē`, is a sample application showcasing how to use clean architecture and MVVM on Android using RxJava & RxAndroid.
-
-![Resepi Demo](media/resepi_gif.gif)
+# Weathery - Sample Reference Project
+A sample application showcasing how to use clean architecture and MVVM on Android using Coroutines
 
 # 1. Architecture
 
@@ -55,29 +53,17 @@ This project follow a single Activity pattern and Jetpack Navigation in order to
     * See: [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
 * **Room:** Persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
     * See: [Room](https://developer.android.com/topic/libraries/architecture/room)
-* **Koin:** A pragmatic lightweight dependency injection framework for Kotlin developers.
-    * See: [Koin](https://insert-koin.io/)
 * **MultiDex:** Library used when your app and the libraries it references exceed 65,536 method.
     * See: [MultiDex](https://developer.android.com/studio/build/multidex)
 * **Navigation:** Library which helps you implement navigation, from simple button clicks to more complex patterns, such as app bars and the navigation drawer. The Navigation component also ensures a consistent and predictable user experience.
     * See: [Navigation](https://developer.android.com/guide/navigation)
 * **Databinding**:  is a support library that allows you to bind UI components in your layouts to data sources in your app using a declarative format rather than programmatically.
     * See [Databinding](https://developer.android.com/topic/libraries/data-binding)
-* **Picasso:** Picasso allows for hassle-free image loading in your application—often in one line of code!
-    * See: [Picasso](https://square.github.io/picasso/)
-
-# 3. Unit test
-* **Windows:** gradlew assembleDebug --stacktrace
-* **macOS & Linux:** ./gradlew assembleDebug --stacktrace
-
-# 4. CI
-This projects includes integration with Github Actions, everytime a pull is merged to the main branch, a new job triggers run the unit test and builds a new APK
-
 
 # References
 
 * Single Activity: Why, When, and How:
-[Android Dev Summit 18](https://www.youtube.com/watch?v=2k8x8V77CrU)
+* [Android Dev Summit 18](https://www.youtube.com/watch?v=2k8x8V77CrU)
 
 * [Android Jetpack Libraries](https://developer.android.com/jetpack)
 
@@ -85,5 +71,3 @@ This projects includes integration with Github Actions, everytime a pull is merg
 
 * Clean Architecture:
     * [Uncle Bob](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
-
-* Getting on the same page with Paging 3 by [@FMuntenescu](https://www.twitter.com/⁦FMuntenescu): [Getting on the same page with Paging 3](https://android-developers.googleblog.com/2020/07/getting-on-same-page-with-paging-3.html)
