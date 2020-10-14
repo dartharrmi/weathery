@@ -41,7 +41,8 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         HomeViewModel(
                 DependencyContainer.findCitiesByNameUseCase,
                 DependencyContainer.findCitiesByLocationUseCase,
-                DependencyContainer.getBookmarkUseCase
+                DependencyContainer.getBookmarkUseCase,
+                DependencyContainer.deleteBookmarkUseCase
         )
     }
     private lateinit var bookmarksAdapter: BookmarksAdapter
@@ -188,6 +189,11 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                         rvBookmarksList.scrollToPosition(position)
                     }
                     setActionTextColor(Color.YELLOW)
+                    addCallback(object: Snackbar.Callback() {
+                        override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                            viewModel.deleteBookmark(bookmark)
+                        }
+                    })
                 }.show()
             }
         }
