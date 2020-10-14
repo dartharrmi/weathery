@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.dartharrmi.weathery.base.BaseViewModel
 import com.dartharrmi.weathery.domain.CityWeather
 import com.dartharrmi.weathery.ui.livedata.Event
+import com.dartharrmi.weathery.usecases.detail.IGetBookmarkUseCase
 import com.dartharrmi.weathery.usecases.home.IFindCitiesByLocationUseCase
 import com.dartharrmi.weathery.usecases.home.IFindCitiesByNameUseCase
 import com.dartharrmi.weathery.utils.Logger
@@ -13,12 +14,32 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class HomeViewModel(private val findCitiesByNameUseCase: IFindCitiesByNameUseCase,
-                    private val findCitiesByLocationUseCase: IFindCitiesByLocationUseCase): BaseViewModel() {
+                    private val findCitiesByLocationUseCase: IFindCitiesByLocationUseCase,
+                    private val getBookmarkUseCase: IGetBookmarkUseCase): BaseViewModel() {
 
     private val tag = Logger.makeLogTag("HomeViewModel")
 
+    val getBookmarksEvent = MutableLiveData<Event<List<CityWeather>>>()
     val multipleCitiesEvent = MutableLiveData<Event<List<CityWeather>>>()
     val cityFoundEvent = MutableLiveData<Event<CityWeather>>()
+
+    fun getBookmarks() {
+        viewModelScope.launch(contextProvider.getMainContext()) {
+            showProgress()
+
+            try {
+                val result = withContext(contextProvider.getIoContext()) {
+                    getBookmarkUseCase.execute()
+                }
+                getBookmarksEvent.value = Event.success(result)
+            } catch (t: Throwable) {
+                LOGE(tag, "Error getting the bookmarks", t)
+                getBookmarksEvent.value = Event.failure(t)
+            } finally {
+                hideProgress()
+            }
+        }
+    }
 
     fun findCitiesByName(query: String) {
         viewModelScope.launch(contextProvider.getMainContext()) {

@@ -9,9 +9,7 @@ import com.dartharrmi.weathery.repositories.OpenWeatherMapLocalDataSource
 import com.dartharrmi.weathery.repositories.OpenWeatherMapRemoteDataSource
 import com.dartharrmi.weathery.repositories.WeatherRepository
 import com.dartharrmi.weathery.repositories.room.AppDatabase
-import com.dartharrmi.weathery.usecases.detail.DeleteBookmarkUseCase
-import com.dartharrmi.weathery.usecases.detail.DownloadIconUseCase
-import com.dartharrmi.weathery.usecases.detail.SaveBookmarkUseCase
+import com.dartharrmi.weathery.usecases.detail.*
 import com.dartharrmi.weathery.usecases.home.FindCitiesByLocationUseCase
 import com.dartharrmi.weathery.usecases.home.FindCitiesByNameUseCase
 import com.dartharrmi.weathery.webservice.utils.PublicOkHttpClient
@@ -41,6 +39,9 @@ object DependencyContainer {
     lateinit var deleteBookmarkUseCase: DeleteBookmarkUseCase
         private set
 
+    lateinit var getBookmarkUseCase: IGetBookmarkUseCase
+        private set
+
     fun initDependencies(context: Context) {
         db = Room.databaseBuilder(
             context,
@@ -56,5 +57,6 @@ object DependencyContainer {
         downloadIconUseCase = DownloadIconUseCase(repository)
         saveBookmarkUseCase = SaveBookmarkUseCase(repository)
         deleteBookmarkUseCase = DeleteBookmarkUseCase(repository)
+        getBookmarkUseCase = GetBookmarkUseCase(repository)
     }
 }

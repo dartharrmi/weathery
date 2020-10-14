@@ -51,10 +51,10 @@ class DetailsViewModel(private val downloadIconUseCase: IDownloadIconUseCase,
                 val result = withContext(contextProvider.getIoContext()) {
                     deleteBookmarkUseCase.execute(location)
                 }
-                saveBookmarkEvent.value = Event.success(result)
+                deleteBookmarkEvent.value = Event.success(result)
             } catch (t: Throwable) {
                 LOGE(tag, "Error saving the bookmark", t)
-                saveBookmarkEvent.value = Event.failure(t)
+                deleteBookmarkEvent.value = Event.failure(t)
             } finally {
                 hideProgress()
             }

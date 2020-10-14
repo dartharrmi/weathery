@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dartharrmi.weathery.R
-import com.dartharrmi.weathery.base.BaseApp
 import com.dartharrmi.weathery.base.BaseFragment
 import com.dartharrmi.weathery.databinding.FragmentHomeBinding
 import com.dartharrmi.weathery.di.DependencyContainer
@@ -21,13 +20,21 @@ import com.dartharrmi.weathery.ui.livedata.Status
 import com.dartharrmi.weathery.ui.map.MapFragment
 import com.dartharrmi.weathery.utils.activityViewModelBuilder
 import com.dartharrmi.weathery.utils.hideKeyBoard
+import com.dartharrmi.weathery.utils.visible
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_city_detail.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment: BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel: HomeViewModel by activityViewModelBuilder {
-        HomeViewModel(DependencyContainer.findCitiesByNameUseCase, DependencyContainer.findCitiesByLocationUseCase)
+        HomeViewModel(
+            DependencyContainer.findCitiesByNameUseCase,
+            DependencyContainer.findCitiesByLocationUseCase,
+            DependencyContainer.getBookmarkUseCase
+        )
     }
 
     private val cityFoundObserver = Observer<Event<CityWeather>> {
@@ -58,6 +65,24 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         }
     }
 
+    private val getBookmarkObserver = Observer<Event<List<CityWeather>>> {
+        onGetBookmarkEvent(it)
+    }
+
+    private fun onGetBookmarkEvent(event: Event<List<CityWeather>>) {
+        when (event.status) {
+            Status.SUCCESS -> {
+                if (event.data?.isNotEmpty() == true) {
+
+                } else {
+                    emptyState.visible()
+                }
+            }
+
+            Status.FAILURE -> Snackbar.make(fabSaveBookmark, R.string.bookmark_remove_error, Snackbar.LENGTH_LONG).show()
+        }
+    }
+
     override fun getLayoutId() = R.layout.fragment_home
 
     override fun getVariablesToBind(): Map<Int, Any> = emptyMap()
@@ -66,6 +91,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         viewModel.isLoadingEvent.observe(this, isLoadingObserver)
         viewModel.cityFoundEvent.observe(this, cityFoundObserver)
         viewModel.multipleCitiesEvent.observe(this, multipleCitiesFoundObserver)
+        viewModel.getBookmarksEvent.observe(this, getBookmarkObserver)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,8 +130,6 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
 
             svSearchCity.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    //this@CityListFragment.query = query.orEmpty()
-                    //emptyState.gone()
                     viewModel.findCitiesByName(query.orEmpty())
                     requireActivity().hideKeyBoard()
 
@@ -119,5 +143,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
                 findNavController().navigate(R.id.dest_map_search)
             }
         }
+
+        viewModel.getBookmarks()
     }
 }
